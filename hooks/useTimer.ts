@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { TimerState } from "@/lib/types";
 import { STORAGE_KEYS, DEFAULT_TIMER_STATE } from "@/lib/constants";
+import { formatTime } from "@/lib/utils";
 
 interface UseTimerReturn {
   mode: "countdown" | "stopwatch" | null;
@@ -39,9 +40,10 @@ export function useTimer(onComplete?: (elapsedMs: number) => void): UseTimerRetu
 
   const startTimestampRef = useRef<number | null>(null);
   const accumulatedRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const onCompleteRef = useRef(onComplete);
   const completedRef = useRef(false);
+  const originalTitleRef = useRef<string | null>(null);
 
   onCompleteRef.current = onComplete;
 
@@ -50,7 +52,6 @@ export function useTimer(onComplete?: (elapsedMs: number) => void): UseTimerRetu
     const now = Date.now();
     const elapsed = accumulatedRef.current + (now - startTimestampRef.current);
     setElapsedMs(elapsed);
-    rafRef.current = requestAnimationFrame(tick);
   }, []);
 
   // Recover timer state on mount
@@ -89,18 +90,48 @@ export function useTimer(onComplete?: (elapsedMs: number) => void): UseTimerRetu
     }
   }, []);
 
-  // rAF loop
+  // Interval loop (more reliable than rAF for background tabs)
   useEffect(() => {
     if (running) {
-      rafRef.current = requestAnimationFrame(tick);
+      // Initial tick
+      tick();
+      // Update every 100ms for smooth display
+      intervalRef.current = setInterval(tick, 100);
     }
     return () => {
-      if (rafRef.current !== null) {
-        cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
       }
     };
   }, [running, tick]);
+
+  // Update document title with timer
+  useEffect(() => {
+    if (mode && (running || elapsedMs > 0)) {
+      // Store original title on first timer start
+      if (originalTitleRef.current === null) {
+        originalTitleRef.current = document.title;
+      }
+
+      let titleText: string;
+      if (mode === "countdown" && countdownTarget !== null) {
+        const remaining = Math.max(0, countdownTarget - elapsedMs);
+        titleText = `⏳ ${formatTime(remaining)}`;
+      } else if (mode === "stopwatch") {
+        titleText = `⏱️ ${formatTime(elapsedMs)}`;
+      } else {
+        titleText = originalTitleRef.current || "ClockIn";
+      }
+      document.title = titleText;
+    } else {
+      // Restore original title when timer is not active
+      if (originalTitleRef.current !== null) {
+        document.title = originalTitleRef.current;
+        originalTitleRef.current = null;
+      }
+    }
+  }, [mode, running, elapsedMs, countdownTarget]);
 
   // Check countdown completion
   useEffect(() => {
