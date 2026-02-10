@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Session, TaskLine as TaskLineType, DailyLog } from "@/lib/types";
 import { getTodayKey, generateId } from "@/lib/utils";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
@@ -20,6 +20,7 @@ export default function Home() {
     [{ id: generateId(), text: "", isCheckbox: false, checked: false }]
   );
   const [flash, setFlash] = useState(false);
+  const [showTaskList, setShowTaskList] = useState(true);
 
   const todayKey = getTodayKey();
   const todaySessions = sessions[todayKey] || [];
@@ -74,6 +75,19 @@ export default function Home() {
     [setSessions, todayKey]
   );
 
+  // cmd+shift+U to toggle task list
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.metaKey && e.shiftKey && e.key.toLowerCase() === "u") {
+        e.preventDefault();
+        setShowTaskList((prev) => !prev);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const isReady = sessionsLoaded && tasksLoaded;
 
   if (!isReady) {
@@ -101,7 +115,7 @@ export default function Home() {
     >
       <Header />
       <main className="max-w-6xl mx-auto px-6 py-4">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6 lg:h-[calc(100vh-100px)]">
+        <div className={`grid grid-cols-1 ${showTaskList ? 'lg:grid-cols-[1.2fr_1fr]' : ''} gap-6 lg:h-[calc(100vh-100px)]`}>
           <div className="space-y-6">
             <DailySummary
               sessions={todaySessions}
@@ -113,9 +127,11 @@ export default function Home() {
               onCountdownComplete={handleCountdownComplete}
             />
           </div>
-          <div className="min-h-[400px] lg:min-h-0">
-            <TaskEditor tasks={tasks} onChange={handleTasksChange} />
-          </div>
+          {showTaskList && (
+            <div className="min-h-[400px] lg:min-h-0">
+              <TaskEditor tasks={tasks} onChange={handleTasksChange} />
+            </div>
+          )}
         </div>
       </main>
     </div>

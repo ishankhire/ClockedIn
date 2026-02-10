@@ -1,14 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, MutableRefObject } from "react";
 
 interface ManualEntryProps {
   onAdd: (durationMs: number) => void;
+  inputRef?: MutableRefObject<{ hours: string; minutes: string }>;
 }
 
-export default function ManualEntry({ onAdd }: ManualEntryProps) {
+export default function ManualEntry({ onAdd, inputRef }: ManualEntryProps) {
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
+
+  // Expose input values via ref
+  useEffect(() => {
+    if (inputRef) {
+      inputRef.current = { hours, minutes };
+    }
+  }, [hours, minutes, inputRef]);
 
   const handleAdd = () => {
     const h = parseInt(hours) || 0;

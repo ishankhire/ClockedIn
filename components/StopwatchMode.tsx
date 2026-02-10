@@ -10,6 +10,7 @@ interface StopwatchModeProps {
   onPause: () => void;
   onResume: () => void;
   onStop: () => void;
+  onCancel: () => void;
 }
 
 export default function StopwatchMode({
@@ -20,6 +21,7 @@ export default function StopwatchMode({
   onPause,
   onResume,
   onStop,
+  onCancel,
 }: StopwatchModeProps) {
   return (
     <div className="space-y-6">
@@ -45,9 +47,15 @@ export default function StopwatchMode({
             </button>
             <button
               onClick={onStop}
-              className="flex-1 h-12 rounded-xl bg-accent text-white font-semibold hover:bg-accent-hover transition-colors"
+              className="flex-1 h-12 rounded-xl bg-success text-white font-semibold hover:opacity-90 transition-colors"
             >
               Finish
+            </button>
+            <button
+              onClick={onCancel}
+              className="flex-1 h-12 rounded-xl bg-danger/10 text-danger font-semibold hover:bg-danger/20 transition-colors"
+            >
+              Cancel
             </button>
           </>
         ) : (
@@ -63,6 +71,12 @@ export default function StopwatchMode({
               className="flex-1 h-12 rounded-xl bg-success text-white font-semibold hover:opacity-90 transition-colors"
             >
               Finish
+            </button>
+            <button
+              onClick={onCancel}
+              className="flex-1 h-12 rounded-xl bg-danger/10 text-danger font-semibold hover:bg-danger/20 transition-colors"
+            >
+              Cancel
             </button>
           </>
         )}

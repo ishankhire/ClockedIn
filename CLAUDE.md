@@ -33,3 +33,7 @@ Single-page time-tracking app. Next.js 16 App Router, TypeScript (strict), Tailw
 - `clockedin-sessions` — `Record<YYYY-MM-DD, Session[]>` (daily totals are derived, never stored)
 - `clockedin-timer` — Active timer state for page-refresh recovery
 - `clockedin-tasks` — `TaskLine[]` (persists indefinitely across days)
+
+## Keyboard Shortcuts
+
+All keyboard shortcuts are documented in `Keybinds.md`. **IMPORTANT:** Whenever you add, modify, or remove a keyboard shortcut, you MUST update `Keybinds.md` to keep the documentation current.

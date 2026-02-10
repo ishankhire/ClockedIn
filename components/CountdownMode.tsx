@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, MutableRefObject } from "react";
 import { formatTime } from "@/lib/utils";
 import { COUNTDOWN_PRESETS } from "@/lib/constants";
 
@@ -12,6 +12,8 @@ interface CountdownModeProps {
   onPause: () => void;
   onResume: () => void;
   onCancel: () => void;
+  onFinish: () => void;
+  inputRef?: MutableRefObject<{ hours: string; minutes: string }>;
 }
 
 export default function CountdownMode({
@@ -22,9 +24,18 @@ export default function CountdownMode({
   onPause,
   onResume,
   onCancel,
+  onFinish,
+  inputRef,
 }: CountdownModeProps) {
   const [hours, setHours] = useState("");
   const [minutes, setMinutes] = useState("");
+
+  // Expose input values via ref
+  useEffect(() => {
+    if (inputRef) {
+      inputRef.current = { hours, minutes };
+    }
+  }, [hours, minutes, inputRef]);
 
   const handleStart = (ms?: number) => {
     if (ms) {
@@ -57,6 +68,12 @@ export default function CountdownMode({
                 Pause
               </button>
               <button
+                onClick={onFinish}
+                className="flex-1 h-12 rounded-xl bg-success text-white font-semibold hover:opacity-90 transition-colors"
+              >
+                Finish
+              </button>
+              <button
                 onClick={onCancel}
                 className="flex-1 h-12 rounded-xl bg-danger/10 text-danger font-semibold hover:bg-danger/20 transition-colors"
               >
@@ -70,6 +87,12 @@ export default function CountdownMode({
                 className="flex-1 h-12 rounded-xl bg-accent text-white font-semibold hover:bg-accent-hover transition-colors"
               >
                 Resume
+              </button>
+              <button
+                onClick={onFinish}
+                className="flex-1 h-12 rounded-xl bg-success text-white font-semibold hover:opacity-90 transition-colors"
+              >
+                Finish
               </button>
               <button
                 onClick={onCancel}
