@@ -7,10 +7,10 @@ const ROTATION_INTERVAL = 15_000;
 
 function getFontSize(text: string): string {
   const len = text.length;
-  if (len <= 15) return "text-4xl";
-  if (len <= 30) return "text-3xl";
-  if (len <= 50) return "text-2xl";
-  return "text-xl";
+  if (len <= 15) return "text-7xl";
+  if (len <= 30) return "text-6xl";
+  if (len <= 50) return "text-5xl";
+  return "text-4xl";
 }
 
 export default function MotivationalBanner() {
@@ -38,7 +38,7 @@ export default function MotivationalBanner() {
   const phrase = phrases[index];
 
   return (
-    <div className="px-8 py-3 text-center">
+    <div className="px-8 pt-1 pb-3 text-center">
       <p
         className={`${getFontSize(phrase)} font-semibold italic text-text-primary transition-opacity duration-400 ${
           visible ? "opacity-100" : "opacity-0"
