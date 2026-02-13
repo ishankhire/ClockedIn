@@ -42,7 +42,7 @@ All keyboard shortcuts are documented in `Keybinds.md`. **IMPORTANT:** Whenever 
 
 **ALWAYS** commit and push changes after completing tasks. Follow these steps:
 1. Stage files: `git add <files>` (or `git add -A` for all changes)
-2. Commit with descriptive message: `git commit -m "message"`
+2. Commit with descriptive message, that does not include "co-authored by Claude": `git commit -m "message"`
 3. Push to remote: `git push`
 
 This is a MANDATORY step - never consider a task complete without committing and pushing the changes.
