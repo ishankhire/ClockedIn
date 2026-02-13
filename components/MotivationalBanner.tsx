@@ -7,9 +7,9 @@ const ROTATION_INTERVAL = 15_000;
 
 function getFontSize(text: string): string {
   const len = text.length;
-  if (len <= 15) return "text-4xl";
-  if (len <= 30) return "text-3xl";
-  if (len <= 50) return "text-2xl";
+  if (len <= 15) return "text-6xl";
+  if (len <= 30) return "text-4xl";
+  if (len <= 50) return "text-3xl";
   return "text-xl";
 }
 
