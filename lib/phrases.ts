@@ -4,7 +4,6 @@
  */
 const phrases: string[] = [
   "LOCK. IN.",
-  "you got this <33333",
   "Discipline is choosing between what you want now and what you want most.",
   "You didn't come this far to only come this far.",
   "chup chaap baithke kaam karo",
