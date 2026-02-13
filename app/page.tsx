@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import DailySummary from "@/components/DailySummary";
 import TimerPanel from "@/components/TimerPanel";
 import TaskEditor from "@/components/TaskEditor";
+import MotivationalBanner from "@/components/MotivationalBanner";
 
 export default function Home() {
   const [sessions, setSessions, sessionsLoaded] = useLocalStorage<DailyLog>(
@@ -94,6 +95,7 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-bg-primary">
         <Header />
+        <MotivationalBanner />
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6">
             <div className="space-y-6">
@@ -114,6 +116,7 @@ export default function Home() {
       }`}
     >
       <Header />
+      <MotivationalBanner />
       <main className="max-w-6xl mx-auto px-6 py-4">
         <div className={`grid grid-cols-1 ${showTaskList ? 'lg:grid-cols-[1.2fr_1fr]' : ''} gap-6 lg:h-[calc(100vh-100px)]`}>
           <div className="space-y-6">
