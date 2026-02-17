@@ -93,7 +93,7 @@ export default function Home() {
 
   if (!isReady) {
     return (
-      <div className="min-h-screen bg-bg-primary">
+      <div className="min-h-screen bg-bg-primary bg-[url('/panda-background.jpg')] bg-cover bg-center bg-no-repeat">
         <Header />
         <MotivationalBanner />
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -111,7 +111,7 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen bg-bg-primary transition-colors duration-300 ${
+      className={`min-h-screen bg-[url('/panda-background.jpg')] bg-cover bg-center bg-no-repeat transition-colors duration-300 ${
         flash ? "bg-accent/10" : ""
       }`}
     >
