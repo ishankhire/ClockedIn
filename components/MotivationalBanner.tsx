@@ -42,7 +42,7 @@ export default function MotivationalBanner() {
   return (
     <div className="px-8 py-3 text-center">
       <p
-        className={`${getFontSize(phrase)} font-semibold italic text-white transition-opacity duration-400 ${
+        className={`${getFontSize(phrase)} font-semibold italic text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.7)] transition-opacity duration-400 ${
           visible ? "opacity-100" : "opacity-0"
         }`}
       >
