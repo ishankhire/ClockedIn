@@ -14,10 +14,12 @@ function getFontSize(text: string): string {
 }
 
 export default function MotivationalBanner() {
-  const [index, setIndex] = useState(() =>
-    Math.floor(Math.random() * phrases.length)
-  );
+  const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * phrases.length));
+  }, []);
 
   const rotate = useCallback(() => {
     setVisible(false);
