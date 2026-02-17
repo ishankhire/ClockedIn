@@ -97,7 +97,7 @@ export default function Home() {
         position: "fixed",
         inset: 0,
         zIndex: -1,
-        backgroundImage: "url('/steph-curry-bg.jpg')",
+        backgroundImage: "url('/spiderman-bg.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
