@@ -8,7 +8,7 @@ const phrases: string[] = [
   "kaam kar re gaadhav ._.",
   "Discipline is choosing between what you want now and what you want most.",
   "You didn't come this far to only come this far.",
-  "kaam karo bhai, sab theek ho jayega",
+  "if ur reading this i hope u have a great day :)",
   "consistency is more important than perfection",
   "perseverance is the hard work you do after you get tired of doing the hard work you already did."
 ];
