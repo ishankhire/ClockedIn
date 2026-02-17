@@ -2,8 +2,8 @@
 
 :root {
   --bg-primary: #FAFAF9;
-  --bg-surface: #FFFFFF;
-  --bg-accent: #F0EFEB;
+  --bg-surface: rgba(255, 255, 255, 0.70);
+  --bg-accent: rgba(240, 239, 235, 0.70);
   --text-primary: #1C1917;
   --text-secondary: #78716C;
   --accent: #2563EB;

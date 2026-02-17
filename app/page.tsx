@@ -91,9 +91,25 @@ export default function Home() {
 
   const isReady = sessionsLoaded && tasksLoaded;
 
+  const bg = (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: -1,
+        backgroundImage: "url('/steph-curry-bg.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        filter: "saturate(0.6)",
+      }}
+    />
+  );
+
   if (!isReady) {
     return (
-      <div className="min-h-screen bg-bg-primary bg-[url('/panda-background.jpg')] bg-cover bg-center bg-no-repeat">
+      <div className="min-h-screen">
+        {bg}
         <Header />
         <MotivationalBanner />
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -111,10 +127,11 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen bg-[url('/panda-background.jpg')] bg-cover bg-center bg-no-repeat transition-colors duration-300 ${
+      className={`min-h-screen transition-colors duration-300 ${
         flash ? "bg-accent/10" : ""
       }`}
     >
+      {bg}
       <Header />
       <MotivationalBanner />
       <main className="max-w-6xl mx-auto px-6 py-4">
