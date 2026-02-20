@@ -16,7 +16,11 @@ export function formatDuration(ms: number): string {
 }
 
 export function getTodayKey(): string {
-  return new Date().toISOString().split("T")[0];
+  const d = new Date();
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
 
 export function generateId(): string {
@@ -24,5 +28,9 @@ export function generateId(): string {
 }
 
 export function getDateKeyFromTimestamp(timestamp: string): string {
-  return new Date(timestamp).toISOString().split("T")[0];
+  const d = new Date(timestamp);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
 }
